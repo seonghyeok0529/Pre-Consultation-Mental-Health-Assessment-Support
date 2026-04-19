@@ -1,0 +1,5 @@
+node_modules
+.next
+.wrangler
+.open-next
+.dev.vars
