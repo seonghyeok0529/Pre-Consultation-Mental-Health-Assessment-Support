@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 function fmtMs(ms?: number) {
@@ -8,7 +8,7 @@ function fmtMs(ms?: number) {
   return `${Math.round(ms / 1000)}초`;
 }
 
-export default function ExpertPage() {
+function ExpertPageContent() {
   const params = useSearchParams();
   const sessionId = params.get("sessionId") || "";
   const [bundle, setBundle] = useState<any>(null);
@@ -95,5 +95,13 @@ export default function ExpertPage() {
 
       <p className="text-xs text-slate-500">이 화면은 관찰 가능한 표현 및 반응 패턴만 제시하며, 진단/위험도 판정을 제공하지 않습니다.</p>
     </section>
+  );
+}
+
+export default function ExpertPage() {
+  return (
+    <Suspense fallback={<div className="card p-5">데이터 로딩 중...</div>}>
+      <ExpertPageContent />
+    </Suspense>
   );
 }

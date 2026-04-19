@@ -115,7 +115,7 @@ function inferLessDiscussed(messages: Message[]) {
   for (const q of guidedQuestions) {
     map.set(q.topic, messages.filter((m) => m.role === "user" && m.topic === q.topic).join(" ").length);
   }
-  return [...map.entries()]
+  return Array.from(map.entries())
     .sort((a, b) => a[1] - b[1])
     .slice(0, 2)
     .map(([k]) => k);
