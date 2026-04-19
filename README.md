@@ -93,3 +93,27 @@ lib/
 - 요약은 관찰 가능한 표현 및 반응 패턴 중심
 - UI 및 문구에 "의료 서비스 대체 아님" 명시
 
+## 9) Cloudflare 배포 가이드 (Workers + OpenNext)
+
+Cloudflare 로그에서 `npx wrangler deploy` 단계 실패 시, 아래 조건을 반드시 맞춰야 합니다.
+
+### 필수 전제
+
+- `package.json`의 `next` 버전은 `14.2.35` 이상
+- `wrangler.jsonc`가 레포에 존재
+- `deploy`/`preview` 스크립트가 OpenNext 명령으로 설정
+
+### Cloudflare Dashboard 권장 설정
+
+Workers & Pages > 해당 프로젝트 > Settings > Build
+
+- **Install command**: `bun install`
+- **Build command**: `npm run build`
+- **Deploy command**: `npx wrangler deploy`
+
+### 왜 `--dangerouslyUseUnsupportedNextVersion`를 쓰는가?
+
+OpenNext가 Next.js 14 계열을 "지원 정책상 경고/차단"할 수 있어,
+비대화형 CI 환경에서는 해당 플래그가 없으면 `opennextjs-cloudflare build`가 실패할 수 있습니다.
+
+이 저장소는 `package.json`/`wrangler.jsonc`에서 이 플래그를 이미 반영해 두었습니다.
