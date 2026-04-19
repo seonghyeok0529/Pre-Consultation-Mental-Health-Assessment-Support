@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { TopicKey } from "@/lib/types";
 
 const topicOptions: { key: TopicKey; label: string }[] = [
@@ -14,7 +14,7 @@ const topicOptions: { key: TopicKey; label: string }[] = [
   { key: "work_school", label: "학업/진로/업무" }
 ];
 
-export default function PreviewPage() {
+function PreviewPageContent() {
   const params = useSearchParams();
   const router = useRouter();
   const sessionId = params.get("sessionId") || "";
@@ -78,7 +78,7 @@ export default function PreviewPage() {
                   checked={selectedTopics.includes(t.key)}
                   onChange={(e) => {
                     setSelectedTopics((prev) =>
-                      e.target.checked ? [...new Set([...prev, t.key])] : prev.filter((k) => k !== t.key)
+                      e.target.checked ? (prev.includes(t.key) ? prev : [...prev, t.key]) : prev.filter((k) => k !== t.key)
                     );
                   }}
                 />
@@ -90,5 +90,13 @@ export default function PreviewPage() {
         <button onClick={submitShare} className="rounded-xl bg-calm-700 px-4 py-2 text-white">선택 저장 후 전문가 화면으로</button>
       </div>
     </section>
+  );
+}
+
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={<div className="card p-5">요약을 불러오는 중...</div>}>
+      <PreviewPageContent />
+    </Suspense>
   );
 }
