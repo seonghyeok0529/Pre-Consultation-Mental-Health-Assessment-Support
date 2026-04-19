@@ -4,9 +4,10 @@ export default function MentalHealthLandingPage() {
   return (
     <section className="mx-auto max-w-3xl space-y-6">
       <div className="card p-6 md:p-8">
-        <h1 className="text-2xl font-bold text-calm-700">시작 안내</h1>
+        <h1 className="text-2xl font-bold text-calm-700">멘탈헬스 전용 랜딩 (/mentalhealth)</h1>
         <p className="mt-4 whitespace-pre-line leading-relaxed text-slate-700">
-          {`이 대화는 상담을 대신하지 않습니다.
+          {`이 페이지는 /mentalhealth 경로 전용 랜딩 페이지입니다.
+이 대화는 상담을 대신하지 않습니다.
 이 AI는 진단하거나 판단하지 않습니다.
 당신이 편하게 자신의 상태를 정리할 수 있도록 돕기 위한 사전 대화입니다.
 원하지 않는 내용은 공유하지 않을 수 있습니다.`}
@@ -21,6 +22,9 @@ export default function MentalHealthLandingPage() {
           </Link>
           <Link href="/expert" className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50">
             전문가 요약 보기(데모)
+          </Link>
+          <Link href="/" className="rounded-xl border border-calm-200 bg-white px-5 py-3 text-calm-700 hover:bg-calm-50">
+            메인 페이지로 이동
           </Link>
         </div>
       </div>
